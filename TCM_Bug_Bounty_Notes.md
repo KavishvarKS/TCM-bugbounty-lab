@@ -180,107 +180,105 @@ we will be able to get the adin cookie..
 # 5.Command line injection
 
 ## Command Injection 0x01
-
+- - http://localhost; whoami ;#
+  - which php ; #
+    
+## Command Injection 0x02
+- - http://localhost?q='speep 10'
+  - ?q='whoami'
 
 
 ## Command Injection 0x03
 
-Based on a test result inject the payload in the last position where the
+- Based on a test result inject the payload in the last position where the
 input is received.
 
-\^2))}\';whoami;)\^2))}\'
+- ^2))}';whoami;)^2))}'
 
 # 6.Service side template injection
 
 ## SSTI 0x01
 
-Burp suite template injection
+- Burp suite template injection
 
 ## SSTI 0x02
 
-> Same as the above one but the render is within the server and will not
-> be reflected on the client side because of the java script.
+- Same as the above one but the render is within the server and will not
+be reflected on the client side because of the java script.
 
-Hence the
-
-**www-data**
-
-which is the server side database can be seen in burp suite response.
+- Hence the**www-data**which is the server side database can be seen in burp suite response.
 
 # 7.XXE
 
 ## XXE 0x01
 
-> The lab has pre defined files under
-
+- The lab has pre defined files under
 ***/labs/user-content***
 
-& Amberson entity.
+- & Amberson entity.
 
-One the file is uploads, we will get the sensitive information.
+- One the file is uploads, we will get the sensitive information.
 
 # 8.File upload
 
 ## File upload 0x01
 
-> Change file type and content of the file in burp as the file are saved
-> in client side on only and does not interact with the server .
->
-> Client side control is not good for security.
->
-> Change the file content into
->
-> And the file name as **cmd.php** fuff for word list \-\-\--\> ***ffuf
-> -u
-> [[http://localhost/labs/FUZZ]{.underline}](http://localhost/labs/FUZZ)
-> -w***
->
-> ***/usr/share/wordlists/dirb/common.txt***
-> localhost/labs/uploads/cmd.php?cmd=whoami.
+- Change file type and content of the file in burp as the file are saved
+in client side on only and does not interact with the server .
 
-localhost/labs/uploads/cmd.php?cmd=cat/etc/passed.
+- Client side control is not good for security.
+
+- Change the file content into.
+
+- And the file name as **cmd.php** fuff for word list ---> ***ffuf -u
+http://localhost/labs/FUZZ -w /usr/share/wordlists/dirb/common.txt***
+
+- ***localhost/labs/uploads/cmd.php?cmd=whoami.***
+
+- ***localhost/labs/uploads/cmd.php?cmd=cat/etc/passed.***
 
 ## File upload 0x02
 
-> File is now checking on server side now.
->
-> Use logo.php%00.png,logo.php.png. FOR FILE name manipulation in burp.
->
-> Add content \[ the above payload \] in a veiled file ( With little
-> content head and tail ) note the magic Bute of that file and change
-> the name of the file to .php\...Make these changes in the packet
-> captured by burp suite.
+- File is now checking on server side now.
+
+- Use logo.php%00.png,logo.php.png. FOR FILE name manipulation in burp.
+
+ - Add content \[ the above payload \] in a veiled file ( With little
+content head and tail ) note the magic Bute of that file and change
+the name of the file to .php\...Make these changes in the packet
+captured by burp suite.
 
 ## File upload 0x03
 
-***localhost/labs/uploads/logo2.phtml?cmd=whoami***
+- ***localhost/labs/uploads/logo2.phtml?cmd=whoami***
 
 # 9.CSRF
 
 ## CSRF 0x001
 
-Create POC from Burp suite once we login.
+- Create POC from Burp suite once we login.
 
-Reload it again as a different user and the payload does the job.
+- - Reload it again as a different user and the payload does the job.
 
 ## CSRF 0x002
+- - Application gives a unigue csrf token.
+  - But the scrf token does not work.Just the presense of some value is enough.
+  - This is a security flaw.
 
 # SSRF
 
 ## SSRF 0x01
 
-> URL in a request to the application on our behalf.
->
-> In that URL we try to access admin
-> [***[http://localhost/\*\*\*\*\*labs/admin.php]{.underline}***](http://localhost/*****labs/admin.php)
->
-> Also look for Ip's.
+- URL in a request to the application on our behalf.
+- In that URL we try to access admin ***[http://localhost/\*\*\*\*\*labs/admin.php]***
+
+- Also look for Ip's.
 
 ## SSRF 0x02
 
-We can send EC2 instance or collaborator and give that url in the place
+- We can send EC2 instance or collaborator and give that url in the place
 and test it.
 
 # Input validation and filtering
 
-Try using different XSS scripts with different level of security.
+- Try using different XSS scripts with different level of security.
