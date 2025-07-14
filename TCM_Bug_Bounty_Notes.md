@@ -8,6 +8,8 @@
 >
 > *12/07/2025*
 
+***
+
 # 1.Authentication
 
 ## Authentication 0x01
@@ -92,6 +94,8 @@ account info.**
 
 - - We can test and see multiple API using authorised.
 
+***
+
 # 2.File Inclusion
 
 ## File Inclusion 0x01
@@ -113,6 +117,8 @@ burp.
 > - - ***ffuf -request api-req.txt -request-proto http -w /usr/share/seclists/Fuzzing/LFI/LFIJhaddix.txt -fw 19,20***
 
 - - ....//....//....//....//....//....//....//....//etc/passed
+ 
+***
 # 3.SQL Injection
 
 ## Injection 0x01
@@ -154,6 +160,9 @@ injection0x03_users#**
 
 - Later on use the same user name and the above passwd.
 
+
+***
+
 **4.Cros side scripting.**
 
 ## XXS 0x01
@@ -177,6 +186,8 @@ injection0x03_users#**
 - Use webhook.com to get a image utl and pass it in the comments session
 we will be able to get the adin cookie..
 
+***
+
 # 5.Command line injection
 
 ## Command Injection 0x01
@@ -195,6 +206,8 @@ input is received.
 
 - ^2))}';whoami;)^2))}'
 
+***
+
 # 6.Service side template injection
 
 ## SSTI 0x01
@@ -208,6 +221,8 @@ be reflected on the client side because of the java script.
 
 - Hence the**www-data**which is the server side database can be seen in burp suite response.
 
+
+***
 # 7.XXE
 
 ## XXE 0x01
@@ -218,6 +233,9 @@ be reflected on the client side because of the java script.
 - & Amberson entity.
 
 - One the file is uploads, we will get the sensitive information.
+
+
+***
 
 # 8.File upload
 
@@ -252,6 +270,9 @@ captured by burp suite.
 
 - ***localhost/labs/uploads/logo2.phtml?cmd=whoami***
 
+
+***
+
 # 9.CSRF
 
 ## CSRF 0x001
@@ -265,7 +286,9 @@ captured by burp suite.
   - But the scrf token does not work.Just the presense of some value is enough.
   - This is a security flaw.
 
-# SSRF
+***
+
+# 10.SSRF
 
 ## SSRF 0x01
 
